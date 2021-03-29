@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Show</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/new_show.css' %}">
+</head>
+<body>
+    <a href="#" onclick="history.go(-1)" id="back">Go Back</a>
+        <h1>Edit Show {{show.id}}</h1>
+    
+    <form action="/shows/{{show.id}}/update" method="POST" id=inputs>
+        {% csrf_token %}
+        <label>Title</label>
+        <input type="text" value="{{show.title}}" name="title" id=title_input>
+        <Label>Network</Label>
+        <input type="text" value="{{show.network}}"id="network_input" name="network">
+        <Label>Release Date</Label>
+        <input type="date" placeholder="{{show.release}}" id="release_date" name="release_date">
+        <label>Description</label>
+        <input type="textarea" value ="{{show.desc}}"rows="4" cols="50" id="description" name="description">
+        <input type="submit" id="submit" value="Update">
+    </form>
+    <a href="/shows/{{show.id}}" id="go">Go to Show</a>
+</body>
+</html>

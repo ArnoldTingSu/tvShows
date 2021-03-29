@@ -1,0 +1,42 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+h1{
+    text-align: center;
+}
+
+form {
+    align-items: center;
+}
+
+#inputs, #go {
+    display: block;
+    width: 350px;
+    height: auto;
+    margin: auto auto;
+}
+
+#title_input, #description {
+    width: 100%;
+}
+
+#network_input, #release_date {
+    display: flex;
+    justify-content: space-between;
+}
+
+#back{
+    float:right;
+    padding: 20px;
+}
+
+#go, #submit{
+    padding-top: 5px;
+}
+
+#submit {
+    margin-top: 10px;
+    padding: 2px;
+}
