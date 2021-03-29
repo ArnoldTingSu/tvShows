@@ -49,7 +49,7 @@ def update(request, show_id):
     if errors:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/shows/new')
+        return redirect(f'/shows/{url}/edit')
     else:
         if current_info.title != request.POST['title']:
             current_info.title = request.POST['title']

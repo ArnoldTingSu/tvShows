@@ -11,7 +11,13 @@
 <body>
     <a href="#" onclick="history.go(-1)" id="back">Go Back</a>
         <h1>Edit Show {{show.id}}</h1>
-    
+        {% if messages %}
+        <ul class="mesages">
+            {% for message in messages%}
+            <li{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     <form action="/shows/{{show.id}}/update" method="POST" id=inputs>
         {% csrf_token %}
         <label>Title</label>
