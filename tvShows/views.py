@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+
+
 from .models import Show
 
-# Create your views here.
 
 def all_shows(request):
     context = {
@@ -13,7 +15,13 @@ def new(request):
     return render(request, 'new_show.html')
 
 def create(request):
-    Show.objects.create(
+    errors = Show.objects.input_validator(request.POST)
+    if errors:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/shows/new')
+    else:
+        Show.objects.create(
         title=request.POST['title'],
         network=request.POST['network'],
         release=request.POST['release_date'],
@@ -37,18 +45,24 @@ def edit(request, show_id):
 def update(request, show_id):
     current_info = Show.objects.get(id=show_id)
     url = show_id
-    if current_info.title != request.POST['title']:
-        current_info.title = request.POST['title']
-        current_info.save()
-    if current_info.network != request.POST['network']:
-        current_info.network = request.POST['network']
-        current_info.save()
-    if current_info.release != request.POST['release_date']:
-        current_info.release = request.POST['release_date']
-        current_info.save()
-    if current_info.desc != request.POST['description']:
-        current_info.desc = request.POST['description']
-        current_info.save()
+    errors = Show.objects.input_validator(request.POST)
+    if errors:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/shows/new')
+    else:
+        if current_info.title != request.POST['title']:
+            current_info.title = request.POST['title']
+            current_info.save()
+        if current_info.network != request.POST['network']:
+            current_info.network = request.POST['network']
+            current_info.save()
+        if current_info.release != request.POST['release_date']:
+            current_info.release = request.POST['release_date']
+            current_info.save()
+        if current_info.desc != request.POST['description']:
+            current_info.desc = request.POST['description']
+            current_info.save()
     return redirect(f'/shows/{url}')
 
 def delete(request, show_id):

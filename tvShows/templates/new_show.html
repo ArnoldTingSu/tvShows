@@ -9,20 +9,28 @@
     <link rel="stylesheet" href="{% static 'css/new_show.css' %}">
 </head>
 <body>
-    <a href="/shows">Go Back</a>
+    <a href="/shows" id="back">Go Back</a>
     <h1>Add a New Show</h1>
-    
-    <form action="/shows/create" method="POST" id=inputs>
-        {% csrf_token %}
-        <label>Title</label>
-        <input type="text" name="title" id=title_input>
-        <Label>Network</Label>
-        <input type="text" id="network_input" name="network">
-        <Label>Release Date</Label>
-        <input type="date" id="release_date" name="release_date">
-        <label>Description</label>
-        <input type="textarea" rows="4" cols="50" id="description" name="description">
-        <input type="submit" id="submit" value="Create">
-    </form>
+    <div class="content">
+        {% if messages %}
+        <ul class="mesages">
+            {% for message in messages%}
+            <li{% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/shows/create" method="POST" id=inputs>
+            {% csrf_token %}
+            <label>Title</label>
+            <input type="text" name="title" id=title_input>
+            <Label>Network</Label>
+            <input type="text" id="network_input" name="network">
+            <Label>Release Date</Label>
+            <input type="date" id="release_date" name="release_date">
+            <label>Description (Optional)</label>
+            <input type="textarea" rows="4" cols="50" id="description" name="description">
+            <input type="submit" id="submit" value="Create">
+        </form>
+    </div>
 </body>
 </html>
